@@ -1,0 +1,24 @@
+<md-list-item class="container" [@item]="itemanimref" [ngClass]="{
+  'priority-normal':item.priority  === 3,
+  'priority-important':item.priority  === 2,
+  'priority-emergency':item.priority  === 1
+}" (click)="onClick()" [app-draggable]="true" [dragTag]="'task-item'" [dragData]="item" [draggedClass]="'drag-start'">
+
+    <md-checkbox (click)="onCheckBoxClick($event)" class="completed-status" [checked]="item.completed"></md-checkbox>
+    <!-- [ngClass]="{'completed': item.completed}" -->
+    <div md-line class="content" [class.completed]="item.completed">
+        <span [md-tooltip]="item.desc">{{item.desc}}</span>
+    </div>
+    <div md-line class="botton-bar">
+        <span class="due-date" *ngIf="item.dueDate">
+        {{item.dueDate | date:"yy-MM-dd"}}
+        </span>
+        <!-- <ng-template [ngIf]="item.reminder">
+            <md-icon>alarm</md-icon>
+        </ng-template> -->
+
+        <md-icon *ngIf="item.reminder">alarm</md-icon>
+    </div>
+
+    <md-icon class="avatar" [svgIcon]="avatar" md-list-avatar></md-icon>
+</md-list-item>

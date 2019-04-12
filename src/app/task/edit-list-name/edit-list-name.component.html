@@ -1,0 +1,14 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form,$event)" >
+    <h2 md-dialog-title>{{title}}</h2>
+    <div md-dialog-content>
+        <md-input-container class="full-width">
+            <input mdInput type="text" formControlName="name" placeholder="列表名称">
+        </md-input-container>
+
+    </div>
+
+    <div md-dialog-actions>
+        <button type="submit" md-raised-button [disabled]="!form.valid" color="primary">保存</button>
+        <button type="button" md-dialog-close md-button>关闭</button>
+    </div>
+</form>

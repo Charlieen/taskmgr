@@ -1,0 +1,73 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form,$event)">
+    <md-card>
+      <md-tab-group>
+        <md-tab label="'账号信息'">
+
+        <md-card-header>
+            <md-card-title>注册：</md-card-title>
+        </md-card-header>
+
+        <md-card-content>
+
+            <md-input-container class="full-width">
+                <input mdInput type="text" formControlName="email" placeholder="Your email">
+            </md-input-container>
+            <md-input-container class="full-width">
+                <input mdInput type="text" formControlName="name" placeholder="Your name">
+            </md-input-container>
+            <md-input-container class="full-width">
+                <input mdInput type="password" formControlName="password" placeholder="Your password">
+            </md-input-container>
+
+            <md-input-container class="full-width">
+                <input mdInput type="password" formControlName="passwordrepeat" placeholder="Repeat Your password">
+            </md-input-container>
+
+            <!-- <md-grid-list cols="6">
+                <md-grid-tile *ngFor="let item of items">
+                    <md-icon class="avatar" [svgIcon]="item"></md-icon>
+                </md-grid-tile>
+            </md-grid-list> -->
+
+            <app-image-list-select [useSvgIcon]="true" [cols]="6" [title]="'选择头像'" [items]="items" formControlName="avatar">
+            </app-image-list-select>
+            <button md-raised-button color="primary" type="submit">创建</button>
+        </md-card-content>
+
+        <md-card-actions class="text-right">
+            <p>还没有账户？<a [routerLink]="['/register']" routerLinkActive="router-link-active">注册</a></p>
+            <p>忘记密码？<a href="">找回</a></p>
+        </md-card-actions>
+        </md-tab>
+        <md-tab label="'个人信息'">
+          <div class="full-width">
+            <app-identity-input formControlName="identity"></app-identity-input>
+          </div>
+          <div class="full-width">
+            <app-age-input formControlName="dateOfBirth"></app-age-input>
+          </div>
+          <div class="full-width">
+            <app-area-list formControlName="address"></app-area-list>
+          </div>
+        </md-tab>
+      </md-tab-group>
+
+    </md-card>
+
+    <md-card>
+        <md-card-header>
+            <md-card-title>
+                每日佳句
+            </md-card-title>
+            <md-card-subtitle>
+                满足感在于不断的努力，而不是现有成就。全心努力定会胜利满满。
+            </md-card-subtitle>
+        </md-card-header>
+        <img md-card-image src="assets/img/quote_fallback.jpg" alt="">
+        <md-card-content>
+            Statisfaction lies in the effort, not in the attainment, Full effort is full victory.
+        </md-card-content>
+
+
+    </md-card>
+</form>

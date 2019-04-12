@@ -1,0 +1,12 @@
+{
+  "editor.fontSize": 18,
+  "path-intellisense.autoSlashAfterDirectory": true,
+  "path-intellisense.extensionOnImport": true,
+  "search.quickOpen.includeSymbols": true,
+  "editor.tabCompletion": "on",
+  "javascript.suggest.completeFunctionCalls": true,
+  "emmet.showSuggestionsAsSnippets": true,
+  "html.format.enable": false,
+  "html.format.preserveNewLines": false,
+  "git.ignoreLimitWarning": true
+}

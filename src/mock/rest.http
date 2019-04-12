@@ -1,0 +1,73 @@
+GET http://localhost:3000/projects?members_like=2
+
+###
+
+GET  http://localhost:3000/taskLists
+
+###
+
+POST  http://localhost:3000/taskLists
+Content-Type: application/json
+
+{
+  "name":"list1",
+  "order":1,
+  "projectId":"1"
+}
+
+###
+
+PUT   http://localhost:3000/taskLists/1
+Content-Type: application/json
+
+{
+  "name":"list2",
+   "order":1,
+  "projectId":"1"
+}
+
+###
+
+PATCH    http://localhost:3000/taskLists/1
+Content-Type: application/json
+
+{
+  "name":"list3"
+}
+
+###
+
+DELETE     http://localhost:3000/taskLists/1
+
+###
+
+POST  http://localhost:3000/projects
+Content-Type: application/json
+
+{
+ "name":"d",
+ "desc":"d",
+ "coverImg":"/assets/img/covers/0_tn.jpg",
+ "members":null,
+ "id":null
+}
+
+###
+
+POST  http://localhost:3000/tasks
+Content-Type: application/json
+
+{
+"desc":"task1",
+"priority":3,
+"owner":null,
+"followers":null,
+"dueDate":"",
+"reminder":"",
+"remark":"",
+"ownerId":"2",
+"participantIds":[],
+"taskListId":2,
+"completed":false,
+"creatDate":"2019-04-06T20:08:03.107Z"
+}

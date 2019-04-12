@@ -1,0 +1,38 @@
+<div class="task-lists">
+
+    <app-task-list app-droppable
+     [dropTags]="['task-item','task-list']"
+     [dragEnterClass]="'drag-enter'"
+     [app-draggable]="true"
+     [dragTag]="'task-list'"
+      [dragData]="list"
+      [draggedClass]="'drag-start'"
+      (dropped)="handleMove($event,list)"
+       class="list-container"
+        [ngStyle]="{'order':list.order}"
+         *ngFor="let list of (lists$ | async) ">
+
+         <app-task-header
+        (editListName)="editListNameDialog(list)"
+        (newCopyTask)="newCopyTaskDialog(list)"
+         (newTask)="newTaskDialog(list)"
+         (deleteListName)="deleteListNameDialog(list)"
+         [header]="list.name"
+         [list]="list"
+         >
+
+        </app-task-header>
+        <app-quick-task (descOK)="handleDeskOK($event,list)"></app-quick-task>
+        <app-task-item (taskEdit)="editTaskDialog(task)" *ngFor="let task of list.tasks" [item]="task">
+
+        </app-task-item>
+    </app-task-list>
+</div>
+<div>
+  <button type="button" (click)="testClick()" >Test
+  </button>
+</div>
+
+<button class="fab-button" md-fab type="button" (click)="openNewTaskListDialog()">
+    <md-icon>add</md-icon>
+  </button>

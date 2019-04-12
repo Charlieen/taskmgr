@@ -1,0 +1,40 @@
+<div class="address-group">
+  <div>
+    <md-select
+    placeholder="请输入省份"
+    [(ngModel)]="_address.province"
+    (change)="provinceChange()"
+    >
+      <md-option *ngFor="let p of provinces$ | async" [value]="p">
+        {{p}}
+      </md-option>
+    </md-select>
+  </div>
+  <div>
+    <md-select
+    placeholder="请输入市"
+    [(ngModel)]="_address.city"
+    (change)="cityChange()"
+    >
+      <md-option *ngFor="let c of citys$ | async" [value]="c">
+        {{c}}
+      </md-option>
+    </md-select>
+  </div>
+  <div>
+    <md-select
+    placeholder="请输入区县"
+    [(ngModel)]="_address.district"
+    (change)="districtChange()"
+    >
+      <md-option *ngFor="let d of districts$ | async" [value]="d">
+        {{d}}
+      </md-option>
+    </md-select>
+  </div>
+  <div class="street">
+    <md-input-container class="full-width">
+      <input mdInput type="text" [(ngModel)]="_address.street " (change)="streetChange()" placeholder="请输入街道地址">
+    </md-input-container>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="container" [@listAnim]="listAnim$ | async ">
+    <app-project-item *ngFor="let project of (projects$ | async )" (onProjectSelect)="projectSelect(project)" (onEditProjectEvent)="editProjectDialog(project)" (onInvite)="ListenToInvite(project)" (onDeleteProjcetEvent)="ListenToDeleteProject(project)" [item]="project">
+    </app-project-item>
+</div>
+
+
+
+<button class="fab-button" md-fab type="button" (click)="openNewProjectDialog()">
+  <md-icon>add</md-icon>
+</button>

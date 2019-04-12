@@ -1,0 +1,156 @@
+
+/*
+import { Component, OnInit, Input ,forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+//import { Observable } from 'rxjs/Observable';
+import { Observable} from 'rxjs/Rx';
+import{combineLatest}from 'rxjs/operator/combineLatest';
+import {Duration, add, subtract  } from 'date-tools';
+import { CastExpr } from '@angular/compiler';
+import { when } from 'q';
+import { NgSwitchCase, DatePipe } from '@angular/common';
+@Component({
+  selector: 'app-age-input',
+  templateUrl: './age-input.component.html',
+  styleUrls: ['./age-input.component.scss'],
+  providers:[
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting:forwardRef(()=>AgeInputComponent ) ,
+      multi:true,
+
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting:forwardRef(()=>AgeInputComponent ) ,
+      multi:true,
+
+    }]
+})
+export class AgeInputComponent implements OnInit ,ControlValueAccessor {
+
+
+  ageUnits:{label:string, value:number}[];
+
+  form:FormGroup;
+  constructor(private fb:FormBuilder) { }
+
+  ngOnInit() {
+
+
+    this.form= this.fb.group({
+      birthday:['2010-01-01',Validators.compose([Validators.required])],
+      age:this.fb.group({
+        ageNum:['',Validators.compose([Validators.required])],
+        ageUnit:[this.ageUnits,Validators.compose([Validators.required])]
+      }),
+    });
+
+    this.ageUnits=[
+      {label:'年', value:0},
+      {label:'月', value:1},
+      {label:'日', value:2},
+    ]
+
+   let birthday$: Observable<string> ;
+   let age_ageNum$: Observable<string> ;
+   let age_ageUnit$: Observable<string> ;
+   let ageForm: FormGroup;
+
+   let birthday: FormControl;
+   let ageNumf:  FormControl;
+   let ageUnitf: FormControl;
+
+    birthday=this.form.controls['birthday'] as FormControl;
+    ageForm = this.form.controls['age'] as FormGroup;
+
+    ageNumf= ageForm.controls['ageNum'] as FormControl;
+    ageUnitf = ageForm.controls['ageUnit']as FormControl;
+
+
+
+    birthday$= birthday.valueChanges as Observable<string>;
+    age_ageNum$= ageNumf.valueChanges.startWith(1).debounceTime(2000) as Observable<string>;
+    age_ageUnit$= ageUnitf.valueChanges.startWith(0) as Observable<string>;
+
+    const birthdayF$= birthday$.map(d => {
+      return {date:d , from:'birthday'};
+    })
+
+    const ageF$= Observable.combineLatest(age_ageNum$,age_ageUnit$,(num,unit) =>{
+       return this.getDateFromNumAndUnit(num,unit);
+    }).map( d =>{
+      return {date:d, from:'age'}
+    });
+
+    const merged$ = Observable.merge(birthdayF$,ageF$);
+
+    merged$.subscribe(val =>{
+      if(val.from === 'birthday'){
+
+      }
+      if(val.from === 'age'){
+
+      }
+    })
+
+
+  }
+
+  getNumAndUnitFromBirthDay(birthday:string):{num:number,unit:number}{
+
+    console.log(birthday);
+
+    return null;
+  }
+
+  getDateFromNumAndUnit(num,unit):string {
+
+    const d: Date = new Date();
+    const year = d.getFullYear();
+    const month= d.getMonth();
+    const day =d.getDay();
+
+   // console.log('year'+ year+'month'+month+'day'+day);
+
+    let genderDate: Date = null;
+
+
+    if(unit === 0){
+      genderDate = subtract(new Date(year,month,day) , Duration.Months(num*12));
+    }
+    if(unit === 1){
+      genderDate = subtract(new Date(year,month,day) , Duration.Months(num));
+    }
+    if(unit === 2){
+      genderDate = subtract(new Date(year,month,day) , Duration.Days(num));
+    }
+
+
+    return  genderDate.getFullYear() +'-'+ genderDate.getMonth() +'-'+genderDate.getDay();
+
+
+  }
+
+  back_code(){
+
+  }
+
+  writeValue(obj: any): void {
+   // this.selected =obj;
+  }
+  registerOnChange(fn: any): void {
+     // this.propagateChange = fn;
+  }
+  registerOnTouched(fn: any): void {}
+
+
+
+
+  validate(c:FormControl): {[key:string]:any}{
+
+  return null;
+  }
+
+}
+;
